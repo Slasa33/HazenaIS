@@ -4,7 +4,7 @@ using DataLayer.Items;
 using DataLayer.Repository.Interface;
 using ORM;
 
-namespace DataLayer.Repository
+namespace DataLayer.DbTables
 {
     public class KlubyRepository<T> : IKlubyRepository<T> where T : class
     {

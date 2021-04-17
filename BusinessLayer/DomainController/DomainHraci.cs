@@ -12,7 +12,7 @@ namespace BusinessLayer.DomainController
 
         public DomainHraci()
         {
-            _unitOfWork = new UnitOfWork<ItemHrac>(new HazenaContext());
+            _unitOfWork = new UnitOfWork<ItemHrac>(new DbContext());
         }
         
         

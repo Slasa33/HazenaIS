@@ -35,6 +35,7 @@ namespace ORM
             foreach (var property in properties)
             {
                 string column;
+                
                 if (property.PropertyType.IsClass && property.PropertyType != typeof(string))
                 {
                     var innerTables = GetTable(property.PropertyType);
@@ -80,7 +81,7 @@ namespace ORM
                 }
             }
             
-            string statement = BuildCommandJoinedSelect(columns, join.ToString(),tables,Condition);
+            var statement = BuildCommandJoinedSelect(columns, join.ToString(),tables,Condition);
 
             return SelectJoinedEntities(columns, statement);
         }

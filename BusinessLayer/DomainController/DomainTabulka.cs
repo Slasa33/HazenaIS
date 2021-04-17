@@ -11,7 +11,7 @@ namespace BusinessLayer.DomainController
 
         public DomainTabulka()
         {
-            _unitOfWork = new UnitOfWork<ItemTabulka>(new HazenaContext());
+            _unitOfWork = new UnitOfWork<ItemTabulka>(new DbContext());
         }
         
         public async Task<IEnumerable<ItemTabulka>> SelectTabulku()

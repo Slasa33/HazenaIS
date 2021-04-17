@@ -11,7 +11,7 @@ namespace BusinessLayer.DomainController
 
         public DomainKluby()
         {
-            _unitOfWork = new UnitOfWork<ItemKlub>(new HazenaContext());
+            _unitOfWork = new UnitOfWork<ItemKlub>(new DbContext());
         }
 
         public async Task<IEnumerable<ItemKlub>> SelectKluby()

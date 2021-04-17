@@ -22,21 +22,11 @@ namespace ORM
 
             if (check)
             {
-                if (@this.Condition == null) 
-                    @this.Condition = $"WHERE k1.{Convert(expression)} ";
-            
-                else 
-                    @this.Condition += $"AND {Convert(expression)} ";
-            
+                @this.Condition ??= $"WHERE k1.{Convert(expression)} ";
                 return @this;
             }
 
-            if (@this.Condition == null)
-                @this.Condition = $"WHERE {tablename}.{Convert(expression)} ";
-
-            else
-                @this.Condition += $"AND {Convert(expression)} ";
-
+            @this.Condition ??= $"WHERE {tablename}.{Convert(expression)} ";
             return @this;
         }
 
@@ -47,10 +37,10 @@ namespace ORM
             {
                 [ExpressionType.Equal] = "=",
                 [ExpressionType.NotEqual] = "!=",
-                [ExpressionType.GreaterThan] = ">",
-                [ExpressionType.GreaterThanOrEqual] = ">=",
                 [ExpressionType.LessThan] = "<",
                 [ExpressionType.LessThanOrEqual] = "<=",
+                [ExpressionType.GreaterThan] = ">",
+                [ExpressionType.GreaterThanOrEqual] = ">=",
                 [ExpressionType.AndAlso] = "AND",
                 [ExpressionType.OrElse] = "OR"
             };
@@ -104,12 +94,7 @@ namespace ORM
 
                         return propertyName;
                     }
-
-                case ConstantExpression constantExpression:
-                    {
-                        return constantExpression.Type != typeof(int) ? $"'{constantExpression.Value}'" : constantExpression.ToString();
-                    }
-
+                
                 default:
                     return null;
             }

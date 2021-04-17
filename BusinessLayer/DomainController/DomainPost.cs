@@ -11,7 +11,7 @@ namespace BusinessLayer.DomainController
         
         public DomainPost()
         {
-            _unitOfWork = new UnitOfWork<ItemPost>(new HazenaContext());
+            _unitOfWork = new UnitOfWork<ItemPost>(new DbContext());
         }
         
         

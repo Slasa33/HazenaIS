@@ -5,7 +5,7 @@ using ORM;
 
 namespace DataLayer
 {
-    public class HazenaContext : IDisposable
+    public class DbContext : IDisposable
     {
 
         private readonly SqlConnection _sqlConnection;
@@ -16,7 +16,7 @@ namespace DataLayer
         public ReflectiveOrm<ItemPost> Post { get; private set; }
         public ReflectiveOrm<ItemTabulka> Tabulka { get; private set; }
 
-        public HazenaContext()
+        public DbContext()
         {
             _sqlConnection = new SqlConnection("Data Source=localhost\\SQLEXPRESS;Integrated Security=True;Initial Catalog=VIS");
             _sqlConnection.Open();

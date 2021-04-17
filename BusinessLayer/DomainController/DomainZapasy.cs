@@ -12,7 +12,7 @@ namespace BusinessLayer.DomainController
 
         public DomainZapasy()
         {
-            _unitOfWork = new UnitOfWork<ItemZapasy>(new HazenaContext());
+            _unitOfWork = new UnitOfWork<ItemZapasy>(new DbContext());
         }
         
         public async Task<IEnumerable<ItemZapasy>> SelectZapasy()

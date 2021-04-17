@@ -1,4 +1,5 @@
-﻿using DataLayer.Items;
+﻿using DataLayer.DbTables;
+using DataLayer.Items;
 using DataLayer.Repository;
 using DataLayer.Repository.Interface;
 using ORM;
@@ -14,12 +15,12 @@ namespace DataLayer
         public ITabulkaRepository<T> Tabulka { get; set; }
 
 
-        public UnitOfWork(HazenaContext hazenaContext)
+        public UnitOfWork(DbContext hazenaContext)
         {
             InitializeRepository(hazenaContext);
         }
 
-        private void InitializeRepository(HazenaContext hazenaContext)
+        private void InitializeRepository(DbContext hazenaContext)
         {
             Hraci = new HraciRepository<T>(hazenaContext.Hrac);
             Kluby = new KlubyRepository<T>(hazenaContext.Klub);
