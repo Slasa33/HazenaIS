@@ -1,0 +1,9 @@
+C:\Users\Jakub\RiderProjects\HazenaIS\ORM\bin\Debug\netcoreapp3.1\ORM.deps.json
+C:\Users\Jakub\RiderProjects\HazenaIS\ORM\bin\Debug\netcoreapp3.1\ORM.dll
+C:\Users\Jakub\RiderProjects\HazenaIS\ORM\bin\Debug\netcoreapp3.1\ORM.pdb
+C:\Users\Jakub\RiderProjects\HazenaIS\ORM\obj\Debug\netcoreapp3.1\ORM.csprojAssemblyReference.cache
+C:\Users\Jakub\RiderProjects\HazenaIS\ORM\obj\Debug\netcoreapp3.1\ORM.AssemblyInfoInputs.cache
+C:\Users\Jakub\RiderProjects\HazenaIS\ORM\obj\Debug\netcoreapp3.1\ORM.AssemblyInfo.cs
+C:\Users\Jakub\RiderProjects\HazenaIS\ORM\obj\Debug\netcoreapp3.1\ORM.csproj.CoreCompileInputs.cache
+C:\Users\Jakub\RiderProjects\HazenaIS\ORM\obj\Debug\netcoreapp3.1\ORM.dll
+C:\Users\Jakub\RiderProjects\HazenaIS\ORM\obj\Debug\netcoreapp3.1\ORM.pdb

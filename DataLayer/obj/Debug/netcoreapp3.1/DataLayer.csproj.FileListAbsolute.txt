@@ -1,0 +1,12 @@
+C:\Users\Jakub\RiderProjects\HazenaIS\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.deps.json
+C:\Users\Jakub\RiderProjects\HazenaIS\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.dll
+C:\Users\Jakub\RiderProjects\HazenaIS\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.pdb
+C:\Users\Jakub\RiderProjects\HazenaIS\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.csprojAssemblyReference.cache
+C:\Users\Jakub\RiderProjects\HazenaIS\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.AssemblyInfoInputs.cache
+C:\Users\Jakub\RiderProjects\HazenaIS\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.AssemblyInfo.cs
+C:\Users\Jakub\RiderProjects\HazenaIS\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.csproj.CoreCompileInputs.cache
+C:\Users\Jakub\RiderProjects\HazenaIS\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.dll
+C:\Users\Jakub\RiderProjects\HazenaIS\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.pdb
+C:\Users\Jakub\RiderProjects\HazenaIS\DataLayer\bin\Debug\netcoreapp3.1\ORM.dll
+C:\Users\Jakub\RiderProjects\HazenaIS\DataLayer\bin\Debug\netcoreapp3.1\ORM.pdb
+C:\Users\Jakub\RiderProjects\HazenaIS\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.csproj.CopyComplete

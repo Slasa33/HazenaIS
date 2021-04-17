@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>netcoreapp3.1-windows</TargetFramework>
+        <UseWindowsForms>true</UseWindowsForms>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Update="Forms\SpravaKlubu.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="Forms\VlozitKlub.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="Forms\SpravaHracu.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="Forms\DetailHrace.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="Forms\Zapasy.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="Forms\DetailZapasu.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="Forms\VlozitHrace.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="Forms\Tabulka.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="Forms\DetailKlubu.cs">
+        <SubType>Form</SubType>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
+      <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+      <ProjectReference Include="..\ORM\ORM.csproj" />
+    </ItemGroup>
+
+</Project>
