@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -11,6 +13,7 @@ namespace DesktopApp.Forms
     {
         private DomainTabulka _domainTabulka;
         private ItemTabulka _tabulka;
+        private IEnumerable<ItemTabulka> tabulka;
         
         public Task Initialization { get; }
         public Tabulka()
@@ -23,8 +26,10 @@ namespace DesktopApp.Forms
 
         private async Task GetTabulka()
         {
-            var tabulka = await _domainTabulka.SelectTabulku();
-            dataGridView1.DataSource = tabulka.ToList();
+            tabulka = await _domainTabulka.SelectTabulku();
+            var bindingList = new BindingList<ItemTabulka>(tabulka.ToList());
+            var source = new BindingSource(bindingList, null);
+            dataGridView1.DataSource = source;
         }
 
         private void CreateGrid()
@@ -76,7 +81,7 @@ namespace DesktopApp.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
-            Form1 a = new Form1();
+            Menu a = new Menu();
             a.Show();
         }
     }

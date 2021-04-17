@@ -38,5 +38,10 @@ namespace DataLayer.Repository
         {
             await Task.Run(() => _context.Where(k => k.Kid == klub.Kid).Update(klub));
         }
+
+        public async Task DeleteKlub(ItemKlub klub)
+        {
+            await Task.Run(() => _context.Where(k => k.Kid == klub.Kid).Delete());
+        }
     }
 }

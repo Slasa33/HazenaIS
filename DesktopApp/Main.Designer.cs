@@ -1,6 +1,6 @@
 ﻿namespace DesktopApp
 {
-    partial class Form1
+    partial class Menu
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,13 +29,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.zapasyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spravaKlubuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabulkaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.konecToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -70,6 +70,13 @@
             this.tabulkaToolStripMenuItem.Text = "Tabulka";
             this.tabulkaToolStripMenuItem.Click += new System.EventHandler(this.tabulkaToolStripMenuItem_Click);
             // 
+            // konecToolStripMenuItem
+            // 
+            this.konecToolStripMenuItem.Name = "konecToolStripMenuItem";
+            this.konecToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.konecToolStripMenuItem.Text = "Konec";
+            this.konecToolStripMenuItem.Click += new System.EventHandler(this.konecToolStripMenuItem_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image) (resources.GetObject("pictureBox1.Image")));
@@ -80,14 +87,7 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // konecToolStripMenuItem
-            // 
-            this.konecToolStripMenuItem.Name = "konecToolStripMenuItem";
-            this.konecToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.konecToolStripMenuItem.Text = "Konec";
-            this.konecToolStripMenuItem.Click += new System.EventHandler(this.konecToolStripMenuItem_Click);
-            // 
-            // Form1
+            // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -95,8 +95,8 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Menu";
+            this.Text = "Menu";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).EndInit();

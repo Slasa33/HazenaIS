@@ -13,5 +13,6 @@ namespace DataLayer.Repository.Interface
         Task<IEnumerable<ItemKlub>> GetKlubById(int id);
         Task InsertKlub(ItemKlub klub);
         Task UpdateKlub(ItemKlub klub);
+        Task DeleteKlub(ItemKlub klub);
     }
 }

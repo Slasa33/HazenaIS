@@ -39,5 +39,10 @@ namespace BusinessLayer.DomainController
             await _unitOfWork.Kluby.UpdateKlub(klub);
         }
 
+        public async Task DeleteKlub(ItemKlub klub)
+        {
+            await _unitOfWork.Kluby.DeleteKlub(klub);
+        }
+
     }
 }

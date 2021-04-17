@@ -38,6 +38,7 @@ namespace DesktopApp.Forms
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button2
@@ -62,7 +63,7 @@ namespace DesktopApp.Forms
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(30, 34);
+            this.label2.Location = new System.Drawing.Point(65, 34);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 17);
             this.label2.TabIndex = 9;
@@ -70,7 +71,7 @@ namespace DesktopApp.Forms
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(30, 11);
+            this.label1.Location = new System.Drawing.Point(65, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 23);
             this.label1.TabIndex = 8;
@@ -79,7 +80,7 @@ namespace DesktopApp.Forms
             // textBox2
             // 
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(112, 34);
+            this.textBox2.Location = new System.Drawing.Point(151, 34);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 7;
@@ -87,7 +88,7 @@ namespace DesktopApp.Forms
             // textBox1
             // 
             this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(112, 8);
+            this.textBox1.Location = new System.Drawing.Point(151, 8);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 6;
@@ -103,11 +104,23 @@ namespace DesktopApp.Forms
             this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(244, 69);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 13;
+            this.button4.Text = "Smazat";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Visible = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // DetailKlubu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(314, 104);
+            this.ClientSize = new System.Drawing.Size(367, 104);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -120,6 +133,8 @@ namespace DesktopApp.Forms
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button button4;
 
         private System.Windows.Forms.Button button3;
 

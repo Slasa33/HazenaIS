@@ -53,6 +53,7 @@ namespace DesktopApp.Forms
             // 
             // tbrozhodci
             // 
+            this.tbrozhodci.Enabled = false;
             this.tbrozhodci.Location = new System.Drawing.Point(26, 96);
             this.tbrozhodci.Name = "tbrozhodci";
             this.tbrozhodci.Size = new System.Drawing.Size(100, 20);
@@ -60,6 +61,7 @@ namespace DesktopApp.Forms
             // 
             // tbdatum
             // 
+            this.tbdatum.Enabled = false;
             this.tbdatum.Location = new System.Drawing.Point(643, 20);
             this.tbdatum.Name = "tbdatum";
             this.tbdatum.Size = new System.Drawing.Size(132, 20);
@@ -67,31 +69,39 @@ namespace DesktopApp.Forms
             // 
             // tbdomaciskore
             // 
+            this.tbdomaciskore.Enabled = false;
             this.tbdomaciskore.Location = new System.Drawing.Point(265, 165);
             this.tbdomaciskore.Name = "tbdomaciskore";
             this.tbdomaciskore.Size = new System.Drawing.Size(100, 20);
             this.tbdomaciskore.TabIndex = 2;
+            this.tbdomaciskore.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tbhosteskore
             // 
+            this.tbhosteskore.Enabled = false;
             this.tbhosteskore.Location = new System.Drawing.Point(411, 165);
             this.tbhosteskore.Name = "tbhosteskore";
             this.tbhosteskore.Size = new System.Drawing.Size(100, 20);
             this.tbhosteskore.TabIndex = 3;
+            this.tbhosteskore.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tbdomaci
             // 
+            this.tbdomaci.Enabled = false;
             this.tbdomaci.Location = new System.Drawing.Point(135, 253);
             this.tbdomaci.Name = "tbdomaci";
             this.tbdomaci.Size = new System.Drawing.Size(100, 20);
             this.tbdomaci.TabIndex = 4;
+            this.tbdomaci.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tbhoste
             // 
+            this.tbhoste.Enabled = false;
             this.tbhoste.Location = new System.Drawing.Point(536, 253);
             this.tbhoste.Name = "tbhoste";
             this.tbhoste.Size = new System.Drawing.Size(99, 20);
             this.tbhoste.TabIndex = 5;
+            this.tbhoste.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label1
             // 
@@ -169,7 +179,7 @@ namespace DesktopApp.Forms
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 32);
             this.button1.TabIndex = 14;
-            this.button1.Text = "zpět";
+            this.button1.Text = "Zpět";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 

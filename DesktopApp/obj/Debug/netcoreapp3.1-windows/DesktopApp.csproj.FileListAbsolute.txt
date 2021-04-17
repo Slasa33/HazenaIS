@@ -24,7 +24,6 @@ C:\Users\Jakub\RiderProjects\HazenaIS\DesktopApp\bin\Debug\netcoreapp3.1-windows
 C:\Users\Jakub\RiderProjects\HazenaIS\DesktopApp\bin\Debug\netcoreapp3.1-windows\DataLayer.pdb
 C:\Users\Jakub\RiderProjects\HazenaIS\DesktopApp\bin\Debug\netcoreapp3.1-windows\ORM.pdb
 C:\Users\Jakub\RiderProjects\HazenaIS\DesktopApp\obj\Debug\netcoreapp3.1-windows\DesktopApp.Forms.SpravaKlubu.resources
-C:\Users\Jakub\RiderProjects\HazenaIS\DesktopApp\obj\Debug\netcoreapp3.1-windows\DesktopApp.Form1.resources
 C:\Users\Jakub\RiderProjects\HazenaIS\DesktopApp\obj\Debug\netcoreapp3.1-windows\DesktopApp.csproj.GenerateResource.cache
 C:\Users\Jakub\RiderProjects\HazenaIS\DesktopApp\obj\Debug\netcoreapp3.1-windows\DesktopApp.csproj.CopyComplete
 C:\Users\Jakub\RiderProjects\HazenaIS\DesktopApp\obj\Debug\netcoreapp3.1-windows\DesktopApp.Forms.VlozitKlub.resources
@@ -35,3 +34,4 @@ C:\Users\Jakub\RiderProjects\HazenaIS\DesktopApp\obj\Debug\netcoreapp3.1-windows
 C:\Users\Jakub\RiderProjects\HazenaIS\DesktopApp\obj\Debug\netcoreapp3.1-windows\DesktopApp.Forms.VlozitHrace.resources
 C:\Users\Jakub\RiderProjects\HazenaIS\DesktopApp\obj\Debug\netcoreapp3.1-windows\DesktopApp.Forms.Tabulka.resources
 C:\Users\Jakub\RiderProjects\HazenaIS\DesktopApp\obj\Debug\netcoreapp3.1-windows\DesktopApp.Forms.DetailKlubu.resources
+C:\Users\Jakub\RiderProjects\HazenaIS\DesktopApp\obj\Debug\netcoreapp3.1-windows\DesktopApp.Menu.resources

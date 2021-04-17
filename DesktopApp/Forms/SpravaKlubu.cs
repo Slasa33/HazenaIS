@@ -25,7 +25,7 @@ namespace DesktopApp.Forms
             Initialization = GetKlubs();
         }
 
-        private async Task GetKlubs()
+        public async Task GetKlubs()
         {
             _kluby = await _domainKluby.SelectKluby();
             CreateGrid();
@@ -34,7 +34,6 @@ namespace DesktopApp.Forms
         private void CreateGrid()
         {
             var bindingList = new BindingList<ItemKlub>(_kluby.ToList());
-
             var source = new BindingSource(bindingList, null);
             dataGridView1.DataSource = source;
 
@@ -71,7 +70,7 @@ namespace DesktopApp.Forms
             {
                 var value = (int) table.Rows[e.RowIndex].Cells["kid"].Value;
                 var klub = GetKlub(value);
-                var aha = new DetailKlubu(klub);
+                var aha = new DetailKlubu(klub, value, this);
                 aha.Show();
             }
             
@@ -85,7 +84,7 @@ namespace DesktopApp.Forms
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
-            Form1 a = new Form1();
+            Menu a = new Menu();
             a.Show();
         }
 

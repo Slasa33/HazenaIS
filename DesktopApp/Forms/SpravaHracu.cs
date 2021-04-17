@@ -32,7 +32,6 @@ namespace DesktopApp.Forms
             _domainKluby = new DomainKluby();
             CreateGrid();
             Initialization = GetHraci();
-           // _ = GetKlubNameAndPrez();
         }
 
         public async Task GetHraci()

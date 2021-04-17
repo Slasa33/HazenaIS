@@ -70,7 +70,7 @@ namespace DesktopApp.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
-            Form1 a = new Form1();
+            Menu a = new Menu();
             a.Show();
         }
     }

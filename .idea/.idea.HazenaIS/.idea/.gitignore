@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/modules.xml
+/contentModel.xml
+/.idea.HazenaIS.iml
+# Datasource local storage ignored files
+/../../../../../../../../:\Users\Jakub\RiderProjects\HazenaIS\.idea\.idea.HazenaIS\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

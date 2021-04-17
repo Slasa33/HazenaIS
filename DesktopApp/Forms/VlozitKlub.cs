@@ -11,7 +11,7 @@ namespace DesktopApp.Forms
 
         private ItemKlub klub;
         private DomainKluby _domainKluby;
-        
+
         public VlozitKlub(ItemKlub klubik)
         {
             InitializeComponent();
@@ -41,5 +41,6 @@ namespace DesktopApp.Forms
             GetInfo();
             await _domainKluby.InsertKlub(klub);
         }
+
     }
 }
