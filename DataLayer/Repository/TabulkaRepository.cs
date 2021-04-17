@@ -16,7 +16,7 @@ namespace DataLayer.Repository
 
         public async Task<IEnumerable<ItemTabulka>> GetTabulku()
         {
-            return await Task.Run(() => _context.Get());
+            return await Task.Run(() => _context.JoinedSelect());
         }
     }
 }

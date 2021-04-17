@@ -17,7 +17,7 @@ namespace DataLayer.Repository
 
         public async Task<IEnumerable<ItemPost>> GetPost()
         {
-            return await Task.Run(() => _context.Get());
+            return await Task.Run(() => _context.Select());
         }
     }
 }

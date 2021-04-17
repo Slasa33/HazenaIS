@@ -7,7 +7,6 @@ namespace BusinessLayer.DomainController
 {
     public class DomainPost
     {
-        private HazenaContext _context;
         private readonly UnitOfWork<ItemPost> _unitOfWork;
         
         public DomainPost()

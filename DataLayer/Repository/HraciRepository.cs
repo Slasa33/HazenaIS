@@ -17,12 +17,12 @@ namespace DataLayer.Repository
 
         public async Task<ItemHrac> GetHracById(int id)
         {
-            return await Task.Run(() => _context.Where(hrac => hrac.Hid == id).Get().ToList()[0]);
+            return await Task.Run(() => _context.Where(hrac => hrac.Hid == id).JoinedSelect().ToList()[0]);
         }
 
         public async Task<IEnumerable<ItemHrac>> GetHraciByKlubId(int id)
         {
-            return await Task.Run(() => _context.Where(hrac => hrac.Klub.Kid == id).Get());
+            return await Task.Run(() => _context.Where(hrac => hrac.Klub.Kid == id).JoinedSelect());
         }
 
         public async Task InsertHrac(ItemHrac hrac)

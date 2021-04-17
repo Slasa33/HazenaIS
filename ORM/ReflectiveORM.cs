@@ -15,7 +15,7 @@ namespace ORM
     {
         private readonly SqlConnection _connection;
         private bool _isId;
-        public string ConditionSql { get; set; }
+        public string Condition { get; set; }
 
         public ReflectiveOrm(SqlConnection sqlConnection)
         {
@@ -23,12 +23,8 @@ namespace ORM
                 throw new Exception("Connection closed");
 
             _connection = sqlConnection;
-
-            CurrentSql = "";
+            
         }
-
-        private string CurrentSql { get; }
-
         public IEnumerable<T> JoinedSelect()
         {
             var entityType = typeof(T);
@@ -84,9 +80,9 @@ namespace ORM
                 }
             }
             
-            string statement = CreateJoinSelectStatement(columns, join.ToString(),tables,ConditionSql);
+            string statement = BuildCommandJoinedSelect(columns, join.ToString(),tables,Condition);
 
-            return MapEntity(columns, statement);
+            return SelectJoinedEntities(columns, statement);
         }
 
         public IEnumerable<T> Select()
@@ -112,9 +108,9 @@ namespace ORM
                 }
             }
 
-            var sqlStatement = CreateSelectStatement(columns, tables, ConditionSql);
+            var statement = BuildCommandSelect(columns, tables, Condition);
 
-            return GetEntities(sqlStatement, columns, entityType, properties);
+            return SelectEntities(statement, columns, entityType, properties);
         }
 
         public void Insert(object entity)
@@ -125,16 +121,19 @@ namespace ORM
 
             var props = entityType.GetProperties();
 
-            StringBuilder columns = new StringBuilder().Append("(");
-            StringBuilder values = new StringBuilder().Append("(");
+            var columns = new StringBuilder().Append("(");
+            var values = new StringBuilder().Append("(");
 
             foreach (var prop in props)
             {
-                PrepareInsertArguments(entity, prop, values, columns);
+                InsertArgs(entity, prop, values, columns);
             }
+            
             columns.Remove(columns.Length - 1, 1).Append(')');
             values.Remove(values.Length - 1, 1).Append(')');
-            ExecuteNonQueryCommand(CreateInsertStatement(tableName, columns.ToString(), values.ToString()));
+            
+            using var sqlCommand = new SqlCommand(BuildCommandInsert(tableName, columns.ToString(), values.ToString()), _connection);
+            sqlCommand.ExecuteNonQuery();
 
         }
 
@@ -148,25 +147,30 @@ namespace ORM
 
             foreach (var prop in props)
             {
-                PrepareUpdateArguments(entity, prop, arguments);
+                UpdateArgs(entity, prop, arguments);
             }
             arguments.Remove(arguments.Length - 1, 1);
-
-            ExecuteNonQueryCommand(CreateUpdateStatement(tableName, arguments.ToString(), ConditionSql));
+            
+            using var sqlCommand = new SqlCommand(BuildCommandUpdate(tableName, arguments.ToString(), Condition), _connection);
+            sqlCommand.ExecuteNonQuery();
         }
 
         public void Delete()
         {
             var entityType = typeof(T);
             var tableName = GetTable(entityType);
-            ExecuteNonQueryCommand(CreateDeleteStatement(ConditionSql, tableName));
+
+            using var sqlCommand = new SqlCommand(BuildCommandDelete(Condition, tableName), _connection);
+            sqlCommand.ExecuteNonQuery();
+            
         }
 
-        private void PrepareInsertArguments(object entity, PropertyInfo prop, StringBuilder values, StringBuilder columns)
+        private void InsertArgs(object entity, PropertyInfo prop, StringBuilder values, StringBuilder columns)
         {
             var column = GetColumn(prop,false,true);
             if (column == null) return;
             if (prop.GetValue(entity) == null) values.Append("NULL,");
+            
             else if (prop.PropertyType.IsClass && prop.PropertyType != typeof(string))
             {
                 var innerProp = prop.PropertyType.GetProperties();
@@ -182,8 +186,8 @@ namespace ORM
                         {
                             var currentcolumn = GetColumn(innerProperty, true);
                             columns.Append(currentcolumn + ",");
-                            var val = innerProperty.GetValue(instance);
-                            values.Append(prop.PropertyType == typeof(string) ? $"'{val}'," : $"{val},");
+                            var value = innerProperty.GetValue(instance);
+                            values.Append(prop.PropertyType == typeof(string) ? $"'{value}'," : $"{value},");
                         }
                     }
                 }
@@ -197,10 +201,9 @@ namespace ORM
             
             if (!(foreignAtt.ToList()[0] is ForeignKeyAttribute))
                 columns.Append(column + ",");
-            
         }
 
-        private void PrepareUpdateArguments(object entity, PropertyInfo prop, StringBuilder values)
+        private void UpdateArgs(object entity, PropertyInfo prop, StringBuilder values)
         {
             var column = GetColumn(prop, false, true);
             if (column == null) return;
@@ -236,12 +239,10 @@ namespace ORM
                 values.Append(prop.PropertyType == typeof(string) ? $"{column} = '{prop.GetValue(entity)}'," : $"{column} = {prop.GetValue(entity)},");
             }
         }
-
-
-        private List<T> GetEntities(string sqlStatement, List<string> columnNames, Type entityType,
-            PropertyInfo[] entiPropertyInfos)
+        
+        private IEnumerable<T> SelectEntities(string sqlStatement, IReadOnlyList<string> columnNames, Type entityType, PropertyInfo[] entiPropertyInfos)
         {
-            var propertiesColumnsHashMap = new Dictionary<string, object>();
+            var dictionary = new Dictionary<string, object>();
             List<T> entities = new List<T>();
 
             using (var sqlCommand = new SqlCommand(sqlStatement, _connection))
@@ -252,7 +253,7 @@ namespace ORM
                     {
                         for (int i = 0; i < columnNames.Count; i++)
                         {
-                            propertiesColumnsHashMap.Add(columnNames[i], sqlReader.GetValue(i));
+                            dictionary.Add(columnNames[i], sqlReader.GetValue(i));
                         }
 
                         var entity = Activator.CreateInstance(entityType);
@@ -264,12 +265,12 @@ namespace ORM
                                 continue;
                             }
                             var currentColumn = GetColumn(entityProperty, true);
-                            entityProperty.SetValue(entity, propertiesColumnsHashMap[currentColumn] == DBNull.Value ? null : propertiesColumnsHashMap[currentColumn]);
+                            entityProperty.SetValue(entity, dictionary[currentColumn] == DBNull.Value ? null : dictionary[currentColumn]);
                         }
 
                         entities.Add((T)entity);
 
-                        propertiesColumnsHashMap.Clear();
+                        dictionary.Clear();
                     }
                 }
             }
@@ -277,42 +278,44 @@ namespace ORM
             return entities;
         }
 
-        private string GetTable(Type type)
+        private static string GetTable(MemberInfo type)
         {
             var attributes = type.GetCustomAttributes();
-
             return attributes.ToList()[0].ToString();
         }
 
-        private List<T> MapEntity(List<string> columnNames,string statement)
+        private IEnumerable<T> SelectJoinedEntities(IReadOnlyList<string> columnNames,string statement)
         {
-            List<T> hraci = new List<T>();
-            var propertiesColumnsHashMap = new Dictionary<string, object>();
+            var hraci = new List<T>();
+            
+            var dictionary = new Dictionary<string, object>();
             using (var sqlCommand = new SqlCommand(statement, _connection))
             {
                 using (var sqlReader = sqlCommand.ExecuteReader())
                 {
                     while (sqlReader.Read())
                     {
-                        
                         for (int i = 0; i < columnNames.Count; i++)
                         {
                             var names = columnNames[i].Split('.')[1];
 
-                            if (!(propertiesColumnsHashMap.ContainsKey(names)))
+                            if (!(dictionary.ContainsKey(names)))
                             {
-                                propertiesColumnsHashMap.Add(names, sqlReader.GetValue(i));
+                                dictionary.Add(names, sqlReader.GetValue(i));
                             }
                             else
                             {
-                                propertiesColumnsHashMap.Add(names+"1", sqlReader.GetValue(i));
+                                dictionary.Add(names+"1", sqlReader.GetValue(i));
                             }
                         } 
+                        
                         var entity = Activator.CreateInstance(typeof(T));
                         var entityType = typeof(T);
                         var properties = entityType.GetProperties();
                         int counter = 0;
-                        List<Type> propsis = new List<Type>();
+                        
+                        var propsis = new List<Type>();
+                        
                         foreach (var entityProperty in properties)
                         {
                             if (entityProperty.PropertyType.IsClass && entityProperty.PropertyType != typeof(string))
@@ -338,7 +341,7 @@ namespace ORM
                                         currentColumn += $"{counter}";
                                     }
                                     innnerProperty.SetValue(innerEntity,
-                                        propertiesColumnsHashMap[currentColumn] == DBNull.Value ? null : propertiesColumnsHashMap[currentColumn]);
+                                        dictionary[currentColumn] == DBNull.Value ? null : dictionary[currentColumn]);
                                 }
                                 entityProperty.SetValue(entity, innerEntity);
                                 
@@ -348,24 +351,24 @@ namespace ORM
                             {
                                 var currentColumn = GetColumn(entityProperty);
                                 entityProperty.SetValue(entity,
-                                    propertiesColumnsHashMap[currentColumn] == DBNull.Value
+                                    dictionary[currentColumn] == DBNull.Value
                                         ? null
-                                        : propertiesColumnsHashMap[currentColumn]);
+                                        : dictionary[currentColumn]);
                             }
                         }
                         
                         hraci.Add((T) entity);
                         
-                        propertiesColumnsHashMap.Clear();
+                        dictionary.Clear();
                     }
                 }
             }
 
-            ConditionSql = null;
+            Condition = null;
             return hraci;
         }
 
-        private string GetColumn(PropertyInfo entityPropertyInfo, bool inner = false,bool getWithoutId = false)
+        private string GetColumn(MemberInfo entityPropertyInfo, bool inner = false, bool getWithoutId = false)
         {
             var propertyAttributes = entityPropertyInfo.GetCustomAttributes();
 
@@ -390,41 +393,30 @@ namespace ORM
             return entityPropertyInfo.Name;
         }
 
-        private static string CreateUpdateStatement(string tableName, string arguments, string condition)
+        private static string BuildCommandUpdate(string tableName, string arguments, string condition)
         {
             return $"UPDATE {tableName} SET {arguments} {condition}";
         }
 
-        private static string CreateInsertStatement(string tableName, string columns, string values)
+        private static string BuildCommandInsert(string tableName, string columns, string values)
         {
             return $"INSERT INTO " + tableName + columns + "VALUES" + values;
         }
 
-        private static string CreateSelectStatement(List<string> col, string tableName, string condition)
+        private static string BuildCommandSelect(IEnumerable<string> col, string tableName, string condition)
         {
             return "SELECT " + string.Join(",", col) + " FROM " + tableName + " " + condition;
         }
 
-        private static string CreateDeleteStatement(string condition, string tableName)
+        private static string BuildCommandDelete(string condition, string tableName)
         {
             return $"DELETE FROM {tableName} {condition}";
         }
 
-        private static string CreateJoinSelectStatement(List<string> columns, string join, string table, string condition)
-        { 
+        private static string BuildCommandJoinedSelect(IEnumerable<string> columns, string join, string table, string condition)
+        {
             var command = $"SELECT {string.Join(",", columns)} from {table} {join} {condition}";
             return command;
-        }
-
-        private void ExecuteNonQueryCommand(string sqlStatement)
-        {
-            using var sqlCommand = new SqlCommand(sqlStatement, _connection);
-            sqlCommand.ExecuteNonQuery();
-        }
-        
-        public IEnumerable<T> Get()
-        {
-            return string.IsNullOrEmpty(CurrentSql) ? JoinedSelect() : null;
         }
     }
 }

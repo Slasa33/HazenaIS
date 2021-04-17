@@ -16,17 +16,17 @@ namespace DataLayer.Repository
 
         public async Task<IEnumerable<ItemKlub>> GetKlub()
         {
-            return await Task.Run(() => _context.Get());
+            return await Task.Run(() => _context.Select());
         }
 
         public async Task<IEnumerable<ItemKlub>> GetKlubByName(string name)
         {
-            return await Task.Run(() => _context.Where(klub => klub.KlubName == name).Get());
+            return await Task.Run(() => _context.Where(klub => klub.KlubName == name).JoinedSelect());
         }
 
         public async Task<IEnumerable<ItemKlub>> GetKlubById(int id)
         {
-            return await Task.Run(() => _context.Where(klub => klub.Kid == id).Get());
+            return await Task.Run(() => _context.Where(klub => klub.Kid == id).JoinedSelect());
         }
 
         public async Task InsertKlub(ItemKlub klub)

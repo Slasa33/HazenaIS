@@ -18,12 +18,12 @@ namespace DataLayer.Repository
         
         public async Task<IEnumerable<ItemZapasy>> GetZapasy()
         {
-            return await Task.Run(() => _context.Get());
+            return await Task.Run(() => _context.JoinedSelect());
         }
 
         public async Task<ItemZapasy> GetZapasById(int id)
         {
-            return await Task.Run(() => _context.Where(zapasy => zapasy.Zid == id).Get().ToList()[0]);
+            return await Task.Run(() => _context.Where(zapasy => zapasy.Zid == id).JoinedSelect().ToList()[0]);
         }
         
         
