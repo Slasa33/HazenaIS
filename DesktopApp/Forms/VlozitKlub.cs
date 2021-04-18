@@ -12,12 +12,14 @@ namespace DesktopApp.Forms
         private ItemKlub klub;
         private DomainKluby _domainKluby;
 
-        public VlozitKlub(ItemKlub klubik)
+        private SpravaKlubu form;
+        public VlozitKlub(ItemKlub klubik, SpravaKlubu spravaKlubu)
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
             _domainKluby = new DomainKluby();
             klub = klubik;
+            form = spravaKlubu;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -34,6 +36,9 @@ namespace DesktopApp.Forms
         private async void button1_Click(object sender, EventArgs e)
         {
             await InsertKlub();
+            await form.GetKlubs();
+            Close();
+
         }
 
         private async Task InsertKlub()

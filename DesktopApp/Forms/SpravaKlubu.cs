@@ -14,7 +14,7 @@ namespace DesktopApp.Forms
     {
         private DomainKluby _domainKluby;
         private IEnumerable<ItemKlub> _kluby;
-        
+        private ItemKlub _klub = new ItemKlub();
         public Task Initialization { get; }
         
         public SpravaKlubu()
@@ -22,23 +22,37 @@ namespace DesktopApp.Forms
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
             _domainKluby = new DomainKluby();
+            CreateGrid();
             Initialization = GetKlubs();
         }
 
         public async Task GetKlubs()
         {
             _kluby = await _domainKluby.SelectKluby();
-            CreateGrid();
+            FillData();
         }
-
         private void CreateGrid()
         {
-            var bindingList = new BindingList<ItemKlub>(_kluby.ToList());
-            var source = new BindingSource(bindingList, null);
-            dataGridView1.DataSource = source;
-
-            dataGridView1.Columns[0].HeaderText = "ID Klubu";
-            dataGridView1.Columns[1].HeaderText = "Název klubu";
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                HeaderText = "kid",
+                DataPropertyName = nameof(_klub.Kid),
+                Name = "kid",
+                Visible = false
+            });
+            
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                HeaderText = "Název klubu",
+                DataPropertyName = nameof(_klub.KlubName),
+            });
+            
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                HeaderText = "Prezident",
+                DataPropertyName = nameof(_klub.Prezident)
+            });
+            
             
             var btnCell = new DataGridViewButtonColumn
             {
@@ -46,19 +60,25 @@ namespace DesktopApp.Forms
                 Text = @"Zobrazit",
                 UseColumnTextForButtonValue = true
             };
-            
 
-            dataGridView1.Columns.Add(btnCell);
+            dataGridView1.AutoGenerateColumns = false;
             
+            dataGridView1.Columns.Add(btnCell);
             dataGridView1.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.AutoSizeColumnsMode=DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.Columns[0].Visible = false;
+        }
+        
+        public void FillData()
+        {
+            var bindingList = new BindingList<ItemKlub>(_kluby.ToList());
+            var source = new BindingSource(bindingList, null);
+            dataGridView1.DataSource = source;
         }
         
         private void button1_Click(object sender, EventArgs e)
         {
-            VlozitKlub newKlub = new VlozitKlub(new ItemKlub());
+            VlozitKlub newKlub = new VlozitKlub(new ItemKlub(), this);
             newKlub.ShowDialog();
         }
 
