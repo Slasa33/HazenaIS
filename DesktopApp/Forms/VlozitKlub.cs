@@ -33,8 +33,22 @@ namespace DesktopApp.Forms
             klub.Prezident = textBox2.Text;
         }
         
+        private bool ValidateInput()
+        {
+            if(textBox1.Text.Equals("")) return false;
+            if(textBox2.Text.Equals("")) return false;
+            
+            return true;
+        }
+        
         private async void button1_Click(object sender, EventArgs e)
         {
+            if (!ValidateInput())
+            {
+                MessageBox.Show("Špatně vyplněné údaje!");
+                return;
+            }
+            
             await InsertKlub();
             await form.GetKlubs();
             Close();

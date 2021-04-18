@@ -7,10 +7,10 @@ using ORM;
 
 namespace DataLayer.DbTables
 {
-    public class HraciRepository<T> : IHraci<T> where T : class
+    public class DbHraci<T> : IHraci<T> where T : class
     {
         private readonly ReflectiveOrm<ItemHrac> _context;
-        public HraciRepository(ReflectiveOrm<ItemHrac> context)
+        public DbHraci(ReflectiveOrm<ItemHrac> context)
         {
             _context = context;
         }

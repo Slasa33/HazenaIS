@@ -6,11 +6,11 @@ using ORM;
 
 namespace DataLayer.DbTables
 {
-    public class PostRepository<T> : IPost<T> where T : class
+    public class DbPost<T> : IPost<T> where T : class
     {
         private readonly ReflectiveOrm<ItemPost> _context;
         
-        public PostRepository(ReflectiveOrm<ItemPost> context)
+        public DbPost(ReflectiveOrm<ItemPost> context)
         {
             _context = context;
         }

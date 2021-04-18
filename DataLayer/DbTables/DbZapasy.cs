@@ -7,11 +7,11 @@ using ORM;
 
 namespace DataLayer.DbTables
 {
-    public class ZapasyRepository<T> : IZapasy<T> where T : class
+    public class DbZapasy<T> : IZapasy<T> where T : class
     {
         private readonly ReflectiveOrm<ItemZapasy> _context;
         
-        public ZapasyRepository(ReflectiveOrm<ItemZapasy> context)
+        public DbZapasy(ReflectiveOrm<ItemZapasy> context)
         {
             _context = context;
         }

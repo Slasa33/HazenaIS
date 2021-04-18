@@ -62,20 +62,12 @@ namespace ORM
         {
             switch (expressionSide)
             {
-                case MethodCallExpression _:
-                    throw new SystemException();
-                case BinaryExpression binaryExpression:
-                    return InternalConvert(binaryExpression.Left, "left") + " " + Operator(binaryExpression.NodeType) + " " + InternalConvert(binaryExpression.Right, "right");
-            }
-            
-            switch (expressionSide)
-            {
                 case MemberExpression propertyExpression:
                     {
                         var propertyColumnAttribute = propertyExpression.Member.GetCustomAttribute(typeof(ColumnName));
-                        var propertyName = propertyColumnAttribute == null ? propertyExpression.Member.Name : (propertyColumnAttribute as ColumnName)?.Name;
+                        var property = propertyColumnAttribute == null ? propertyExpression.Member.Name : (propertyColumnAttribute as ColumnName)?.Name;
 
-                        if (side != "right") return propertyName;
+                        if (side != "right") return property;
                         
                         var objectM = Expression.Convert(propertyExpression, typeof(object));
                         var lambda = Expression.Lambda<Func<object>>(objectM);
@@ -92,7 +84,7 @@ namespace ORM
                                 return $"'{value}'";
                         }
 
-                        return propertyName;
+                        return property;
                     }
                 
                 default:

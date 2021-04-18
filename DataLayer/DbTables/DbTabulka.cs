@@ -6,10 +6,10 @@ using ORM;
 
 namespace DataLayer.DbTables
 {
-    public class TabulkaRepository<T> : ITabulka<T> where T : class
+    public class DbTabulka<T> : ITabulka<T> where T : class
     {
         private readonly ReflectiveOrm<ItemTabulka> _context;
-        public TabulkaRepository(ReflectiveOrm<ItemTabulka> context)
+        public DbTabulka(ReflectiveOrm<ItemTabulka> context)
         {
             _context = context;
         }

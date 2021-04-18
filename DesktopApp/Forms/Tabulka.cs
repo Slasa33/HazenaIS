@@ -19,6 +19,7 @@ namespace DesktopApp.Forms
         public Tabulka()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
             _domainTabulka = new DomainTabulka();
             CreateGrid();
             Initialization = GetTabulka();

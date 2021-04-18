@@ -23,7 +23,6 @@ namespace ORM
                 throw new Exception("Connection closed");
 
             _connection = sqlConnection;
-            
         }
         public IEnumerable<T> JoinedSelect()
         {
@@ -32,6 +31,7 @@ namespace ORM
             var columns = new List<string>();
             var properties = entityType.GetProperties();
             var join = new StringBuilder();
+            
             foreach (var property in properties)
             {
                 string column;
@@ -81,7 +81,7 @@ namespace ORM
                 }
             }
             
-            var statement = BuildCommandJoinedSelect(columns, join.ToString(),tables,Condition);
+            var statement = BuildCommandJoinedSelect(columns,tables, join.ToString(), Condition);
 
             return SelectJoinedEntities(columns, statement);
         }
@@ -90,24 +90,11 @@ namespace ORM
         {
             var entityType = typeof(T);
 
-            var columns = new List<string>();
             var tables = GetTable(entityType);
 
             var properties = entityType.GetProperties();
 
-            foreach (var property in properties)
-            {
-                if (property.PropertyType.IsClass && property.PropertyType != typeof(string))
-                {
-                    continue;
-                }
-                var column = GetColumn(property, true);
-
-                if (column != null)
-                {
-                    columns.Add(column);
-                }
-            }
+            var columns = (from property in properties where !property.PropertyType.IsClass || property.PropertyType == typeof(string) select GetColumn(property, true) into column where column != null select column).ToList();
 
             var statement = BuildCommandSelect(columns, tables, Condition);
 
@@ -117,17 +104,14 @@ namespace ORM
         public void Insert(object entity)
         {
             var entityType = typeof(T);
-
             var tableName = GetTable(entityType);
-
-            var props = entityType.GetProperties();
-
+            var propertyInfos = entityType.GetProperties();
             var columns = new StringBuilder().Append("(");
             var values = new StringBuilder().Append("(");
 
-            foreach (var prop in props)
+            foreach (var property in propertyInfos)
             {
-                InsertArgs(entity, prop, values, columns);
+                InsertArgs(entity, property, values, columns);
             }
             
             columns.Remove(columns.Length - 1, 1).Append(')');
@@ -143,16 +127,16 @@ namespace ORM
             var entityType = typeof(T);
 
             var tableName = GetTable(entityType);
-            var props = entityType.GetProperties();
-            StringBuilder arguments = new StringBuilder();
+            var propertyInfos = entityType.GetProperties();
+            var columns = new StringBuilder();
 
-            foreach (var prop in props)
+            foreach (var prop in propertyInfos)
             {
-                UpdateArgs(entity, prop, arguments);
+                UpdateArgs(entity, prop, columns);
             }
-            arguments.Remove(arguments.Length - 1, 1);
+            columns.Remove(columns.Length - 1, 1);
             
-            using var sqlCommand = new SqlCommand(BuildCommandUpdate(tableName, arguments.ToString(), Condition), _connection);
+            using var sqlCommand = new SqlCommand(BuildCommandUpdate(tableName, columns.ToString(), Condition), _connection);
             sqlCommand.ExecuteNonQuery();
         }
 
@@ -161,7 +145,7 @@ namespace ORM
             var entityType = typeof(T);
             var tableName = GetTable(entityType);
 
-            using var sqlCommand = new SqlCommand(BuildCommandDelete(Condition, tableName), _connection);
+            using var sqlCommand = new SqlCommand(BuildCommandDelete(tableName, Condition), _connection);
             sqlCommand.ExecuteNonQuery();
             
         }
@@ -244,7 +228,7 @@ namespace ORM
         private IEnumerable<T> SelectEntities(string sqlStatement, IReadOnlyList<string> columnNames, Type entityType, PropertyInfo[] entiPropertyInfos)
         {
             var dictionary = new Dictionary<string, object>();
-            List<T> entities = new List<T>();
+            var entities = new List<T>();
 
             using (var sqlCommand = new SqlCommand(sqlStatement, _connection))
             {
@@ -252,7 +236,7 @@ namespace ORM
                 {
                     while (sqlReader.Read())
                     {
-                        for (int i = 0; i < columnNames.Count; i++)
+                        for (var i = 0; i < columnNames.Count; i++)
                         {
                             dictionary.Add(columnNames[i], sqlReader.GetValue(i));
                         }
@@ -296,7 +280,7 @@ namespace ORM
                 {
                     while (sqlReader.Read())
                     {
-                        for (int i = 0; i < columnNames.Count; i++)
+                        for (var i = 0; i < columnNames.Count; i++)
                         {
                             var names = columnNames[i].Split('.')[1];
 
@@ -313,7 +297,7 @@ namespace ORM
                         var entity = Activator.CreateInstance(typeof(T));
                         var entityType = typeof(T);
                         var properties = entityType.GetProperties();
-                        int counter = 0;
+                        var counter = 0;
                         
                         var propsis = new List<Type>();
                         
@@ -394,9 +378,9 @@ namespace ORM
             return entityPropertyInfo.Name;
         }
 
-        private static string BuildCommandUpdate(string tableName, string arguments, string condition)
+        private static string BuildCommandUpdate(string tableName, string columns, string condition)
         {
-            return $"UPDATE {tableName} SET {arguments} {condition}";
+            return $"UPDATE {tableName} SET {columns} {condition}";
         }
 
         private static string BuildCommandInsert(string tableName, string columns, string values)
@@ -404,20 +388,19 @@ namespace ORM
             return $"INSERT INTO " + tableName + columns + "VALUES" + values;
         }
 
-        private static string BuildCommandSelect(IEnumerable<string> col, string tableName, string condition)
+        private static string BuildCommandSelect(IEnumerable<string> columns, string tableName, string condition)
         {
-            return "SELECT " + string.Join(",", col) + " FROM " + tableName + " " + condition;
+            return $"SELECT {string.Join(",", columns)} FROM  {tableName} {condition}";
         }
 
-        private static string BuildCommandDelete(string condition, string tableName)
+        private static string BuildCommandDelete(string tableName, string condition)
         {
             return $"DELETE FROM {tableName} {condition}";
         }
 
-        private static string BuildCommandJoinedSelect(IEnumerable<string> columns, string join, string table, string condition)
+        private static string BuildCommandJoinedSelect(IEnumerable<string> columns, string table, string join, string condition)
         {
-            var command = $"SELECT {string.Join(",", columns)} from {table} {join} {condition}";
-            return command;
+            return $"SELECT {string.Join(",", columns)} FROM {table} {join} {condition}";
         }
     }
 }

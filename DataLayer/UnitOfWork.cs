@@ -19,11 +19,11 @@ namespace DataLayer
 
         private void InitializeRepository(DbContext hazenaContext)
         {
-            Hraci = new HraciRepository<T>(hazenaContext.Hrac);
-            Kluby = new KlubyRepository<T>(hazenaContext.Klub);
-            Zapasy = new ZapasyRepository<T>(hazenaContext.Zapas);
-            Post = new PostRepository<T>(hazenaContext.Post);
-            Tabulka = new TabulkaRepository<T>(hazenaContext.Tabulka);
+            Hraci = new DbHraci<T>(hazenaContext.Hrac);
+            Kluby = new DbKluby<T>(hazenaContext.Klub);
+            Zapasy = new DbZapasy<T>(hazenaContext.Zapas);
+            Post = new DbPost<T>(hazenaContext.Post);
+            Tabulka = new DbTabulka<T>(hazenaContext.Tabulka);
         }
 
     }

@@ -16,6 +16,7 @@ namespace DesktopApp.Forms
         public DetailKlubu(ItemKlub klub, int id, SpravaKlubu spravaKlubu)
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
             _domainKluby = new DomainKluby();
             _domainHraci = new DomainHraci();
             Klub = klub;

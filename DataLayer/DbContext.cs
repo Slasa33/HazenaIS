@@ -18,7 +18,7 @@ namespace DataLayer
 
         public DbContext()
         {
-            _sqlConnection = new SqlConnection("Data Source=localhost\\SQLEXPRESS;Integrated Security=True;Initial Catalog=VIS");
+            _sqlConnection = new SqlConnection("Data Source=localhost\\SQLEXPRESS;Integrated Security=True;Initial Catalog=CS");
             _sqlConnection.Open();
             CreateRepositoryOrm();
         }

@@ -58,6 +58,18 @@ namespace DesktopApp.Forms
             klubComboBox.Enabled = false;
             
         }
+
+        private bool ValidateInput()
+        {
+            if(textBox1.Text.Equals("")) return false;
+            if(textBox2.Text.Equals("")) return false;
+            if(textBox3.Text.Equals("")) return false;
+            if(textBox4.Text.Equals("")) return false;
+            if(klubComboBox.SelectedIndex == -1) return false;
+            if(postComboBox.SelectedIndex == -1) return false;
+
+            return true;
+        }
         
         private ItemKlub GetKlub()
         {
@@ -66,6 +78,12 @@ namespace DesktopApp.Forms
         
         private async void button1_Click(object sender, EventArgs e)
         {
+            if (!ValidateInput())
+            {
+                MessageBox.Show("Špatně vyplněné údaje!");
+                return;
+            }
+            
             GetInfo();
             await _domainHraci.InsertHrac(Hrac);
             await form.GetHraci();
