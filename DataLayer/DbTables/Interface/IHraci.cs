@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using DataLayer.Items;
 
-namespace DataLayer.Repository.Interface
+namespace DataLayer.DbTables.Interface
 {
-    public interface IHraciRepository<T> where T : class
+    public interface IHraci<T> where T : class
     {
         Task<ItemHrac> GetHracById(int id);
 

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataLayer.DbTables.Interface;
 using DataLayer.Items;
-using DataLayer.Repository.Interface;
 using ORM;
 
-namespace DataLayer.Repository
+namespace DataLayer.DbTables
 {
-    public class HraciRepository<T> : IHraciRepository<T> where T : class
+    public class HraciRepository<T> : IHraci<T> where T : class
     {
         private readonly ReflectiveOrm<ItemHrac> _context;
         public HraciRepository(ReflectiveOrm<ItemHrac> context)

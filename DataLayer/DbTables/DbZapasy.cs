@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataLayer.DbTables.Interface;
 using DataLayer.Items;
-using DataLayer.Repository.Interface;
 using ORM;
 
-namespace DataLayer.Repository
+namespace DataLayer.DbTables
 {
-    public class ZapasyRepository<T> : IZapasyRepository<T> where T : class
+    public class ZapasyRepository<T> : IZapasy<T> where T : class
     {
         private readonly ReflectiveOrm<ItemZapasy> _context;
         

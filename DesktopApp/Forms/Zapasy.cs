@@ -25,7 +25,7 @@ namespace DesktopApp.Forms
         {
             var zapasy = await _domainZapasy.SelectZapasy();
 
-            var a = from zapas in zapasy select new {zapas.Zid, KlubName = zapas.Klub1.KlubName, klub2 = zapas.Klub2.KlubName, zapas.DomaciSkore, zapas.HosteSkore, zapas.Datum};
+            var a = from zapas in zapasy select new {zapas.Zid, zapas.Klub1.KlubName, klub2 = zapas.Klub2.KlubName, zapas.DomaciSkore, zapas.HosteSkore, zapas.Datum};
             dataGridView1.DataSource = a.ToList();
             
             dataGridView1.Columns[0].Visible = false;

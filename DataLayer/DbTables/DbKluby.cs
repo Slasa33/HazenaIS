@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataLayer.DbTables.Interface;
 using DataLayer.Items;
-using DataLayer.Repository.Interface;
 using ORM;
 
 namespace DataLayer.DbTables
 {
-    public class KlubyRepository<T> : IKlubyRepository<T> where T : class
+    public class KlubyRepository<T> : IKluby<T> where T : class
     {
         private readonly ReflectiveOrm<ItemKlub> _context;
         public KlubyRepository(ReflectiveOrm<ItemKlub> context)

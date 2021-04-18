@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using DataLayer.Items;
 
-namespace DataLayer.Repository.Interface
+namespace DataLayer.DbTables.Interface
 {
-    public interface IPostRepository<T> where T : class
+    public interface IPost<T> where T : class
     {
         Task<IEnumerable<ItemPost>> GetPost();
     }

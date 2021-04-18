@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using DataLayer.Items;
 
-namespace DataLayer.Repository.Interface
+namespace DataLayer.DbTables.Interface
 {
-    public interface IZapasyRepository<T> where T : class
+    public interface IZapasy<T> where T : class
     {
         Task<IEnumerable<ItemZapasy>> GetZapasy();
 

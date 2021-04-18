@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataLayer.DbTables.Interface;
 using DataLayer.Items;
-using DataLayer.Repository.Interface;
 using ORM;
 
-namespace DataLayer.Repository
+namespace DataLayer.DbTables
 {
-    public class TabulkaRepository<T> : ITabulkaRepository<T> where T : class
+    public class TabulkaRepository<T> : ITabulka<T> where T : class
     {
         private readonly ReflectiveOrm<ItemTabulka> _context;
         public TabulkaRepository(ReflectiveOrm<ItemTabulka> context)

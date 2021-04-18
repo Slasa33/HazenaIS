@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using DataLayer.Items;
 
-namespace DataLayer.Repository.Interface
+namespace DataLayer.DbTables.Interface
 {
-    public interface ITabulkaRepository<T> where T : class
+    public interface ITabulka<T> where T : class
     {
         Task<IEnumerable<ItemTabulka>> GetTabulku();
     }

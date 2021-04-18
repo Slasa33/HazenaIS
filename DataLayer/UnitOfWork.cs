@@ -1,18 +1,15 @@
 ﻿using DataLayer.DbTables;
-using DataLayer.Items;
-using DataLayer.Repository;
-using DataLayer.Repository.Interface;
-using ORM;
+using DataLayer.DbTables.Interface;
 
 namespace DataLayer
 {
     public class UnitOfWork<T> : IUnitOfWork<T> where T : class
     {
-        public IHraciRepository<T> Hraci { get; set; }
-        public IKlubyRepository<T> Kluby { get; set; }
-        public IZapasyRepository<T> Zapasy { get; set; }
-        public IPostRepository<T> Post { get; set; }
-        public ITabulkaRepository<T> Tabulka { get; set; }
+        public IHraci<T> Hraci { get; set; }
+        public IKluby<T> Kluby { get; set; }
+        public IZapasy<T> Zapasy { get; set; }
+        public IPost<T> Post { get; set; }
+        public ITabulka<T> Tabulka { get; set; }
 
 
         public UnitOfWork(DbContext hazenaContext)

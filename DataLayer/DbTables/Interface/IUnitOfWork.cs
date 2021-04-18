@@ -1,12 +1,14 @@
-﻿namespace DataLayer.Repository.Interface
+﻿using DataLayer.DbTables.Interface;
+
+namespace DataLayer.DbTables.Interface
 {
     public interface IUnitOfWork<T> where T : class
     {
-        IHraciRepository<T> Hraci { get; set; }
+        IHraci<T> Hraci { get; set; }
         
-        IKlubyRepository<T> Kluby { get; set; }
-        IZapasyRepository<T> Zapasy { get; set; }
-        IPostRepository<T> Post { get; set; }
-        ITabulkaRepository<T> Tabulka { get; set; }
+        IKluby<T> Kluby { get; set; }
+        IZapasy<T> Zapasy { get; set; }
+        IPost<T> Post { get; set; }
+        ITabulka<T> Tabulka { get; set; }
     }
 }

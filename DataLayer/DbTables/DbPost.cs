@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataLayer.DbTables.Interface;
 using DataLayer.Items;
-using DataLayer.Repository.Interface;
 using ORM;
 
-namespace DataLayer.Repository
+namespace DataLayer.DbTables
 {
-    public class PostRepository<T> : IPostRepository<T> where T : class
+    public class PostRepository<T> : IPost<T> where T : class
     {
         private readonly ReflectiveOrm<ItemPost> _context;
         
